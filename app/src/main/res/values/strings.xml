@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GoJekTestProject</string>
+    <string name="setting">Setting</string>
+    <string name="location_setting">App needs location permission for using. Please enable permission from setting.</string>
+
+
 </resources>

@@ -20,6 +20,8 @@ ext {
     stetoOkhttp3Version = '1.5.0'
     gifdrawableVersion = '1.2.12'
     googlePlayServiceVersion = '16.0.0'
+    permissionsdispatcherVerison    = '4.0.0-alpha1'
+
 
     // Packages
     supportPackage = 'com.android.support'
@@ -36,6 +38,8 @@ ext {
     crashlyticsPackage = 'com.crashlytics.sdk.android'
     googlePackage   = 'com.google.android.gms'
     gifdrawablePackage ='pl.droidsonroids.gif'
+    permissionsdispatcherPackage    = 'com.github.hotchemi'
+
 
     // Dependencies
 
@@ -79,6 +83,9 @@ ext {
 
     ]
     gifdrawable = buildDependency(gifdrawablePackage, 'android-gif-drawable', gifdrawableVersion)
+    permissionsdispatcher    =  buildDependency(permissionsdispatcherPackage, 'permissionsdispatcher', permissionsdispatcherVerison)
+    permissionsdispatcherAnnotationProcessor    =  buildDependency(permissionsdispatcherPackage, 'permissionsdispatcher-processor', permissionsdispatcherVerison)
+
 
 }
 
