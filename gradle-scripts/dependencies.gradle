@@ -1,0 +1,94 @@
+ext {
+    minSdkVersion = 16
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    appVersionCode =  1
+    appVersionName = "1.0.0"
+    applicationId =  "com.bit.gojektestproject"
+
+
+    // Versions
+    supportVersion = '28.0.0'
+    rxJavaVersion = '2.2.9'
+    rxAndroidVersion = '2.1.1'
+    jacksonVersion = '2.9.9'
+    retrofitVersion = '2.6.0'
+    convertorJacksonVersion = '2.6.0'
+    adapterRxJavaVersison = '2.6.0'
+    loggingInterceptorVersion = '3.7.0'
+    stethoVersion = '1.5.0'
+    stetoOkhttp3Version = '1.5.0'
+    gifdrawableVersion = '1.2.12'
+    googlePlayServiceVersion = '16.0.0'
+
+    // Packages
+    supportPackage = 'com.android.support'
+    rxjavaPackage = 'io.reactivex.rxjava2'
+    jacksonPackage = 'com.fasterxml.jackson.core'
+    okhttpPackage = 'com.squareup.okhttp3'
+    retrofitPackage = 'com.squareup.retrofit2'
+    convertorJacksonPackage = 'com.squareup.retrofit2'
+    adapterRxJavaPackage = 'com.squareup.retrofit2'
+    loggingInterceptorPackage = 'com.squareup.okhttp3'
+    ormlitePackage = 'com.j256.ormlite'
+    facebookPackage = 'com.facebook.android'
+    stethoPackage = 'com.facebook.stetho'
+    crashlyticsPackage = 'com.crashlytics.sdk.android'
+    googlePackage   = 'com.google.android.gms'
+    gifdrawablePackage ='pl.droidsonroids.gif'
+
+    // Dependencies
+
+
+    supportDependencies = [
+            appCompat   : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
+            design      : buildDependency(supportPackage, 'design', supportVersion),
+            supportv4   : buildDependency(supportPackage, 'support-v4', supportVersion),
+            recyclerview: buildDependency(supportPackage, 'recyclerview-v7', supportVersion),
+            cardview    : buildDependency(supportPackage, 'cardview-v7', supportVersion),
+            customtabs  : buildDependency(supportPackage, 'customtabs', supportVersion),
+            annotations : buildDependency(supportPackage, 'support-annotations', supportVersion),
+            supportv13  : buildDependency(supportPackage, 'support-v13', supportVersion),
+
+    ]
+
+    rxJavaDependencies = [
+            rxAndroid: buildDependency(rxjavaPackage, 'rxandroid', rxAndroidVersion),
+            rxJava   : buildDependency(rxjavaPackage, 'rxjava', rxJavaVersion)
+    ]
+    jacksonDependencies = [
+            core       : buildDependency(jacksonPackage, 'jackson-core', jacksonVersion),
+            annotations: buildDependency(jacksonPackage, 'jackson-annotations', jacksonVersion),
+            databind   : buildDependency(jacksonPackage, 'jackson-databind', rxJavaVersion)
+    ]
+
+    squareupDependencies = [
+            retrofit                : buildDependency(retrofitPackage, 'retrofit', retrofitVersion),
+            retrofitConvertorJackson: buildDependency(convertorJacksonPackage, 'converter-jackson', convertorJacksonVersion),
+            retrofitAdapterRxJava2  : buildDependency(adapterRxJavaPackage, 'adapter-rxjava2', adapterRxJavaVersison),
+            okhttpLoggingInterceptor: buildDependency(loggingInterceptorPackage, 'logging-interceptor', loggingInterceptorVersion),
+    ]
+
+    facebookDependencies = [
+            stetho_core  : buildDependency(stethoPackage, 'stetho', stethoVersion),
+            stetho_okhttp: buildDependency(stethoPackage, 'stetho-okhttp3', stetoOkhttp3Version),
+    ]
+
+    googleDependencies = [
+            location    : buildDependency(googlePackage, 'play-services-location', googlePlayServiceVersion),
+
+    ]
+    gifdrawable = buildDependency(gifdrawablePackage, 'android-gif-drawable', gifdrawableVersion)
+
+}
+
+
+static String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
+
+static String buildDependency(String pack, String dependency, String version, boolean aar) {
+    if (aar) {
+        return "${pack}:${dependency}:${version}@aar"
+    }
+}

@@ -1,26 +1,72 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.appVersionCode
+        versionName rootProject.ext.appVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+   /* compileSdkVersion 28
     defaultConfig {
         applicationId "com.bit.gojektestproject"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
+    }*/
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude '.readme'
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/README.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/rxjava.properties'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.supportv4
+    implementation rxJavaDependencies.rxJava
+    implementation rxJavaDependencies.rxAndroid
+    implementation jacksonDependencies.core
+    implementation jacksonDependencies.annotations
+    implementation jacksonDependencies.databind
+    implementation squareupDependencies.retrofit
+    implementation squareupDependencies.retrofitConvertorJackson
+    implementation squareupDependencies.retrofitAdapterRxJava2
+    implementation squareupDependencies.okhttpLoggingInterceptor
+    implementation facebookDependencies.stetho_core
+    implementation facebookDependencies.stetho_okhttp
+    implementation googleDependencies.location
+    implementation gifdrawable
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
