@@ -4,8 +4,9 @@ apply from: 'gradle-scripts/dependencies.gradle'
 buildscript {
     
     repositories {
-        google()
+
         jcenter()
+        google()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
@@ -18,8 +19,8 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
         jcenter()
+        google()
     }
 }
 

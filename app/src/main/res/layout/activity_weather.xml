@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWeatherBg"
     tools:context=".view.weather.WeatherActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include
+        android:id="@+id/layout_progress_view"
+        layout="@layout/progress_view_layout"
+        android:visibility="gone" />
+
+
+    <include
+        android:id="@+id/layout_error_view"
+        layout="@layout/error_layout"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/layout_weather_view"
+        layout="@layout/layout_weather_view"
+        android:visibility="gone" />
+
+
+</FrameLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/colorErrorBg"
+    >
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/error_text"
+        android:textColor="@color/colorErrorText"
+        android:textSize="@dimen/font_54" />
+
+    <Button
+        android:paddingRight="@dimen/margin_20"
+        android:paddingLeft="@dimen/margin_20"
+        android:text="@string/retry"
+        android:textColor="@color/colorErrorText"
+        android:background="@color/colorErrorBtnBg"
+        android:layout_marginTop="@dimen/margin_48"
+        android:id="@+id/btn_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_message"
+        android:layout_centerInParent="true" />
+
+</RelativeLayout>

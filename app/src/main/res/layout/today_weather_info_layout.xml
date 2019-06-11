@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_56"
+        android:paddingBottom="@dimen/margin_62">
+
+        <TextView
+            android:id="@+id/tv_current_city_temp"
+            fontPath="fonts/Roboto-Black.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:lineSpacingMultiplier="1.2"
+            android:text="20"
+            android:textColor="@color/colorCurrentCityTempText"
+            android:textSize="@dimen/font_96" />
+
+
+        <TextView
+            android:id="@+id/tv_current_city_name"
+            fontPath="fonts/Roboto-Thin.ttf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_current_city_temp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="banglore"
+            android:textColor="@color/colorCurrentCityText"
+            android:textSize="@dimen/font_36" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

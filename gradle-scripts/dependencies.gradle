@@ -21,6 +21,8 @@ ext {
     gifdrawableVersion = '1.2.12'
     googlePlayServiceVersion = '16.0.0'
     permissionsdispatcherVerison    = '4.0.0-alpha1'
+    dextorVersion   = '5.0.0'
+    rxLocationVersion   = '1.0.5'
 
 
     // Packages
@@ -39,6 +41,9 @@ ext {
     googlePackage   = 'com.google.android.gms'
     gifdrawablePackage ='pl.droidsonroids.gif'
     permissionsdispatcherPackage    = 'com.github.hotchemi'
+    dextorPackage    = 'com.karumi'
+    rxLocationPackage    = 'com.patloew.rxlocation'
+
 
 
     // Dependencies
@@ -85,6 +90,8 @@ ext {
     gifdrawable = buildDependency(gifdrawablePackage, 'android-gif-drawable', gifdrawableVersion)
     permissionsdispatcher    =  buildDependency(permissionsdispatcherPackage, 'permissionsdispatcher', permissionsdispatcherVerison)
     permissionsdispatcherAnnotationProcessor    =  buildDependency(permissionsdispatcherPackage, 'permissionsdispatcher-processor', permissionsdispatcherVerison)
+    dextor = buildDependency(dextorPackage , 'dexter', dextorVersion)
+    rxLocation = buildDependency(rxLocationPackage , 'rxlocation',rxLocationVersion)
 
 
 }
@@ -94,8 +101,3 @@ static String buildDependency(String pack, String dependency, String version) {
     return "${pack}:${dependency}:${version}"
 }
 
-static String buildDependency(String pack, String dependency, String version, boolean aar) {
-    if (aar) {
-        return "${pack}:${dependency}:${version}@aar"
-    }
-}

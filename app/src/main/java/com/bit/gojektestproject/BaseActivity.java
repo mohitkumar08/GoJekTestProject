@@ -1,7 +1,6 @@
 package com.bit.gojektestproject;
 
 import android.Manifest.permission;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -9,14 +8,9 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.bit.gojektestproject.view.splash.SplashActivity;
-import com.bit.gojektestproject.view.weather.WeatherActivity;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
@@ -27,8 +21,6 @@ import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -36,17 +28,10 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
-import com.patloew.rxlocation.RxLocation;
-
-import io.reactivex.MaybeObserver;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 abstract public class BaseActivity extends AppCompatActivity implements ResultCallback<LocationSettingsResult> {
 
-    private Activity activity;
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
-    protected Boolean isLocationDialogVisible = true;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -58,9 +43,6 @@ abstract public class BaseActivity extends AppCompatActivity implements ResultCa
 
     protected void onRequestPermissionDenied() {
     }
-
-    protected abstract Activity getActivityInstance();
-
     protected void receivedLastLocation(Location location) {
     }
 
@@ -100,53 +82,19 @@ abstract public class BaseActivity extends AppCompatActivity implements ResultCa
         builder.setAlwaysShow(true);
         SettingsClient client = LocationServices.getSettingsClient(this);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-        task.addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
-            @Override
-            public void onSuccess(final LocationSettingsResponse locationSettingsResponse) {
-                locationDetectStatus(locationSettingsResponse.getLocationSettingsStates().isLocationPresent());
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull final Exception e) {
-                if (e instanceof ResolvableApiException) {
-                    try {
-                        ResolvableApiException resolvable = (ResolvableApiException) e;
-                        resolvable.startResolutionForResult(BaseActivity.this, REQUEST_CHECK_SETTINGS);
-                    } catch (IntentSender.SendIntentException sendEx) {
-                    }
+        task.addOnSuccessListener(locationSettingsResponse -> locationDetectStatus(locationSettingsResponse.getLocationSettingsStates().isLocationPresent())).addOnFailureListener(e -> {
+            if (e instanceof ResolvableApiException) {
+                try {
+                    ResolvableApiException resolvable = (ResolvableApiException) e;
+                    resolvable.startResolutionForResult(BaseActivity.this, REQUEST_CHECK_SETTINGS);
+                } catch (IntentSender.SendIntentException sendEx) {
                 }
             }
         });
 
     }
 
-    @SuppressLint("MissingPermission")
-    protected void gettingLocationOfUser() {
-        RxLocation rxLocation = new RxLocation(getApplication());
-        rxLocation.location().lastLocation().subscribeOn(Schedulers.io()).subscribe(new MaybeObserver<Location>() {
-            @Override
-            public void onSubscribe(final Disposable d) {
 
-            }
-
-            @Override
-            public void onSuccess(final Location location) {
-                Log.e("loca",location.toString());
-                receivedLastLocation(location);
-            }
-
-            @Override
-            public void onError(final Throwable e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-Log.e("comple","complete");
-            }
-        });
-    }
 
     protected void openAppSetting() {
         Intent intent = new Intent();
@@ -168,12 +116,9 @@ Log.e("comple","complete");
                 try {
                     status.startResolutionForResult(this, REQUEST_CHECK_SETTINGS);
                 } catch (IntentSender.SendIntentException e) {
-                    Log.e("TAG", "PendingIntent unable to execute request.");
                 }
                 break;
             case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                Log.e("TAG", "Location settings are inadequate, and cannot be fixed here. Dialog " +
-                        "not created.");
                 break;
         }
     }
