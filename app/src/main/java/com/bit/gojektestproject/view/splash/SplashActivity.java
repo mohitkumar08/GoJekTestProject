@@ -20,12 +20,8 @@ import com.google.android.gms.location.LocationRequest;
 import com.patloew.rxlocation.RxLocation;
 
 import java.util.concurrent.TimeUnit;
-
-import io.reactivex.MaybeObserver;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends BaseActivity implements LifecycleObserver {
 
@@ -81,43 +77,12 @@ public class SplashActivity extends BaseActivity implements LifecycleObserver {
     protected void gettingLocationOfUser1() {
         progressView.setVisibility(View.VISIBLE);
         RxLocation rxLocation = new RxLocation(getApplication());
-        rxLocation.setDefaultTimeout(5, TimeUnit.SECONDS);
+        rxLocation.setDefaultTimeout(8, TimeUnit.SECONDS);
         LocationRequest locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(5000);
+        compositeDisposable.add(rxLocation.location().updates(locationRequest).subscribe(location -> receivedLastLocation(location)));
 
-
-        rxLocation.location().lastLocation().subscribeOn(Schedulers.io()).subscribe(new MaybeObserver<Location>() {
-            Location location;
-
-            @Override
-            public void onSubscribe(final Disposable d) {
-                compositeDisposable.add(d);
-            }
-
-            @Override
-            public void onSuccess(final Location location) {
-                this.location = location;
-                receivedLastLocation(location);
-            }
-
-            @Override
-            public void onError(final Throwable e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onComplete() {
-                if (location == null) {
-                    compositeDisposable.add(rxLocation.location().updates(locationRequest).subscribe(new Consumer<Location>() {
-                        @Override
-                        public void accept(final Location location) throws Exception {
-                            receivedLastLocation(location);
-                        }
-                    }));
-                }
-            }
-        });
     }
 
     @Override
